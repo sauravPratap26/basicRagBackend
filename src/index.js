@@ -156,7 +156,7 @@ app.delete("/collection/:name", async (req, res) => {
 
 app.post("/getAnswers", async (req, res) => {
   try {
-    const { userQuery, name } = req.body;
+    const { userQuery, name, previousChat } = req.body;
 
     if (!userQuery || !name) {
       return res.status(400).json({
@@ -165,7 +165,7 @@ app.post("/getAnswers", async (req, res) => {
       });
     }
 
-    const answer = await getAnswers(userQuery, name);
+    const answer = await getAnswers(userQuery, name, previousChat);
 
     res.status(200).json({
       success: true,

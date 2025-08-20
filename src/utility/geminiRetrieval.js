@@ -28,8 +28,22 @@ export const geminiRetrieval = async (query, name) => {
   return relevantChunk;
 };
 
-export const getAnswers = async (query, name) => {
+export const getAnswers = async (query, name, previousChat) => {
   const client = new OpenAI();
+  const previousChatResponse = await client.chat.completions.create({
+    model: "gpt-5-nano",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You will receive a collection of chat from previous times you need to do a quick summary of it and provide it because it would be further sent for other chat agent as a summary of what the user had previously done, so make it clear and concise of what questions were asked by user earlier on, if there is no chat then simply return no coversation yet, return only string and no JSON strucuture eg: Previous Chat queries/summaries of users are : content",
+      },
+      { role: "developer", content: previousChat },
+    ],
+  });
+
+  const previousChatSummary = previousChatResponse.choices[0].message.content;
+
   const relevantChunk = await geminiRetrieval(query, name);
   const prompt = SYSTEM_PROMPT(relevantChunk);
 
@@ -37,6 +51,7 @@ export const getAnswers = async (query, name) => {
     model: "gpt-5-mini",
     messages: [
       { role: "system", content: prompt },
+      { role: "developer", content: previousChatSummary },
       { role: "user", content: query },
     ],
   });
