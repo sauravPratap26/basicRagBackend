@@ -31,7 +31,7 @@ app.use(
 );
 
 // PDF Upload
-app.post("/upload-pdf", upload.single("pdfFile"), async (req, res) => {
+app.post("/api/upload-pdf", upload.single("pdfFile"), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
@@ -61,7 +61,7 @@ app.post("/upload-pdf", upload.single("pdfFile"), async (req, res) => {
 });
 
 // Plain Text Upload
-app.post("/upload-text", async (req, res) => {
+app.post("/api/upload-text", async (req, res) => {
   try {
     const { name, text } = req.body;
     if (!name || !text) {
@@ -88,7 +88,7 @@ app.post("/upload-text", async (req, res) => {
 });
 
 // CSV Upload
-app.post("/upload-csv", upload.single("csvFile"), async (req, res) => {
+app.post("/api/upload-csv", upload.single("csvFile"), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
@@ -118,7 +118,7 @@ app.post("/upload-csv", upload.single("csvFile"), async (req, res) => {
 });
 
 // Create Collection
-app.post("/create-collection", async (req, res) => {
+app.post("/api/create-collection", async (req, res) => {
   try {
     let result;
     const { name } = req.body;
@@ -137,7 +137,7 @@ app.post("/create-collection", async (req, res) => {
 });
 
 // Delete Collection
-app.delete("/collection/:name", async (req, res) => {
+app.delete("/api/collection/:name", async (req, res) => {
   try {
     const { name } = req.params;
     if (!name) {
@@ -154,7 +154,7 @@ app.delete("/collection/:name", async (req, res) => {
   }
 });
 
-app.post("/getAnswers", async (req, res) => {
+app.post("/api/getAnswers", async (req, res) => {
   try {
     const { userQuery, name, previousChat } = req.body;
 
@@ -182,7 +182,7 @@ app.post("/getAnswers", async (req, res) => {
   }
 });
 
-app.post("/upload-website", async (req, res) => {
+app.post("/api/upload-website", async (req, res) => {
   try {
     const { url, name } = req.body;
     if (!url || !name) {
@@ -214,7 +214,7 @@ app.post("/upload-website", async (req, res) => {
 });
 
 //health route
-app.post("/health", (req, res) => {
+app.post("/api/health", (req, res) => {
   res.json({ success: true });
 });
 

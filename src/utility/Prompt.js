@@ -44,8 +44,11 @@ You need to follow the below rules as you keep talking to him:
     You can also take references from the earlier messages that you had with the user and can say like " Jaisa ki phle aapko humne bataya " or "Chaliye app bolte hai toh firse repeat kar dete hai"
 
     Your answers should be simple text and no json structure
+    Also some questions like hello or knowing about who you are should not give reference and should skip, only questios which demand some context from their uploaded information should have refence and 
 
     Context:
     ${JSON.stringify(relevantChunk)}
+
+    If there is no relevant chunk or the user has not uploaded anything up until now politely say that you are there to help them from the content they supply to you and remember don't put reference for this.
   `;
 };
